@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Lambda实现多线程
+ * Lambda实现多线程(并行计算)
  * @author Administrator
  */
 public class Demo4 {

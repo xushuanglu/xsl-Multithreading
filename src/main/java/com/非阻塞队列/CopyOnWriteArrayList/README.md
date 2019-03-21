@@ -1,0 +1,1 @@
+ArrayList为非线程安全的，如果想在并发中实现线程安全，则可以使用CopyOnWriteArrayList

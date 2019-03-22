@@ -99,3 +99,16 @@ ThreadLocalMap
 　　　　另外，CountDownLatch是不能够重用的，而CyclicBarrier是可以重用的。
 　　2）Semaphore其实和锁有点类似，它一般用于控制对某组资源的访问权限。
 
+
+
+35.CopyOnWriteArrayList可以用于什么应用场景
+CopyOnWriteArrayList(免锁容器)的好处之一是当多个迭代器同时遍历和修改这个列表时，不会抛出ConcurrentModificationException。在CopyOnWriteArrayList中，写入将导致创建整个底层数组的副本，而源数组将保留在原地，使得复制的数组在被修改时，读取操作可以安全地执行。
+
+1、由于写操作的时候，需要拷贝数组，会消耗内存，如果原数组的内容比较多的情况下，可能导致young gc或者full gc； 
+2、不能用于实时读的场景，像拷贝数组、新增元素都需要时间，所以调用一个set操作后，读取到数据可能还是旧的,虽然CopyOnWriteArrayList 能做到最终一致性,但是还是没法满足实时性要求；
+
+CopyOnWriteArrayList透露的思想 
+1、读写分离，读和写分开 
+2、最终一致性 
+3、使用另外开辟空间的思路，来解决并发冲突
+

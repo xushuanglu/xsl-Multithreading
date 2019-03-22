@@ -112,3 +112,9 @@ CopyOnWriteArrayList透露的思想
 2、最终一致性 
 3、使用另外开辟空间的思路，来解决并发冲突
 
+34.SynchronizedMap和ConcurrentHashMap有什么区别
+SynchronizedMap一次锁住整张表来保证线程安全，所以每次只能有一个线程来访为map。
+
+ConcurrentHashMap使用分段锁来保证在多线程下的性能。ConcurrentHashMap中则是一次锁住一个桶。ConcurrentHashMap默认将hash表分为16个桶，诸如get,put,remove等常用操作只锁当前需要用到的桶。这样，原来只能一个线程进入，现在却能同时有16个写线程执行，并发性能的提升是显而易见的。 
+另外ConcurrentHashMap使用了一种不同的迭代方式。在这种迭代方式中，当iterator被创建后集合再发生改变就不再是抛出ConcurrentModificationException，取而代之的是在改变时new新的数据从而不影响原有的数据 ，iterator完成后再将头指针替换为新的数据 ，这样iterator线程可以使用原来老的数据，而写线程也可以并发的完成改变。
+
